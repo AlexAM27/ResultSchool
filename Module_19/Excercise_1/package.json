@@ -1,0 +1,14 @@
+{
+  "name": "excercise_1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "start": "rollup -c -w"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
