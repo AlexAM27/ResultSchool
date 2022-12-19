@@ -1,2 +1,2 @@
 # ResultSchool
-Learn JS cources
+Learn JS and React cources
