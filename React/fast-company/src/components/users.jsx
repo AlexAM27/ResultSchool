@@ -15,7 +15,7 @@ export const Users = () => {
 
   const renderUserQualities = (user) => {
     return user.qualities.map((quality => (
-      <div style={{margin: '5px'}} className={`badge bg-${quality.color}`} key={quality._id}>{quality.name}</div>
+      <div style={{marginRight: '5px'}} className={`badge bg-${quality.color}`} key={quality._id}>{quality.name}</div>
     )))
   }
 
@@ -26,7 +26,7 @@ export const Users = () => {
         <td>{renderUserQualities(user)}</td>
         <td>{user.profession.name}</td>
         <td>{user.completedMeetings}</td>
-        <td>{user.rate}</td>
+        <td>{user.rate}/5</td>
         <td><button className={constants.DELETE_BUTTON} onClick={() => deleteUser(user._id) }>{constants.DELETE_USER_BUTTON_LABEL}</button></td>
       </tr>
     )))
