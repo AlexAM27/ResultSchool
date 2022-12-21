@@ -10,8 +10,14 @@ export const USERS_TABLE_HEADER_LABEL_RATE = 'Оценка';
 export const DELETE_USER_BUTTON_LABEL = 'Удалить';
 
 // BADGE CLASSES
-
 const BADGE = 'badge';
-export const BLUE_BADGE = `${BADGE} text-bg-primary`;
-export const RED_BADGE = `${BADGE} text-bg-danger`;
+export const BLUE_BADGE = `${BADGE} bg-primary`;
+export const RED_BADGE = `${BADGE} bg-danger`;
+
+
+// BUTTON CLASSWS
+const BUTTON = 'btn';
+
+export const DELETE_BUTTON = `${BUTTON} btn-danger`;
+
 
