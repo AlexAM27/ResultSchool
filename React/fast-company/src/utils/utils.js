@@ -1,9 +1,7 @@
 export const createEndingForUserWord = (num) =>  {
-    const lastDigitStr = String(num).slice(-1);
-    switch(true) {
-      case (((lastDigitStr ==='2') || (lastDigitStr ==='3') || (lastDigitStr ==='4')) && ((num < 10) || (num > 20))):
-        return 'человека';
-      default:
-        return 'человек';
-    }
+    num = Math.abs(num) % 100; 
+    const value = num % 10;
+    if(num > 10 && num < 20) return 'человек'; 
+    if(value > 1 && value < 5) return 'человека';
+    return 'человек';
   };
