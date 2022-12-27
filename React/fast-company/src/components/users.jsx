@@ -29,7 +29,7 @@ export const Users = () => {
         <td>{user.rate}/5</td>
         <td><button className={constants.DELETE_BUTTON} onClick={() => deleteUser(user._id) }>{constants.DELETE_USER_BUTTON_LABEL}</button></td>
       </tr>
-    )))
+    )));
   }
 
   const handleUsersList = (id) => {
