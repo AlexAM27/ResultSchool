@@ -9,7 +9,11 @@ export const Users = (props) => {
   
   const renderUsersTable = () => {
     return (users.map(user => (
-      <User key={user._id} user={user}/>
+      <User
+        key={user._id}
+        user={user}
+        onDeleteUser={props.onDelete}
+      />
     )));
   }
 
@@ -24,6 +28,7 @@ export const Users = (props) => {
             <th scope="col">{constants.USERS_TABLE_HEADER_LABEL_PROFESSION}</th>
             <th scope="col">{constants.USERS_TABLE_HEADER_LABEL_MEETINGS}</th>
             <th scope="col">{constants.USERS_TABLE_HEADER_LABEL_RATE}</th>
+            <th scope="col">{constants.USERS_TABLE_HEADER_LABEL_FAVORITE}</th>
             <th scope="col"></th>
           </tr>
         </thead>
