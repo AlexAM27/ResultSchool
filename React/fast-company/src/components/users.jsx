@@ -1,11 +1,18 @@
 import React from 'react';
 import * as constants from '../utils/constants';
+import { Pagination } from './pagination';
 
 import { User } from './user';
 
 export const Users = (props) => {
 
   const {users} = props;
+  const count = users.length;
+  const pageSize = 4;
+
+  const handlePageChange = (pageIndex) => {
+    console.log('page:', pageIndex)
+  }
   
   const renderUsersTable = () => {
     return (users.map(user => (
@@ -36,6 +43,7 @@ export const Users = (props) => {
           {renderUsersTable()}
         </tbody>
       </table>
+      <Pagination itemsCount={count} pageSize={pageSize} onPageChange={handlePageChange}/>
     </>
   );
 };
