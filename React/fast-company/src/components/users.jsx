@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import * as constants from "../utils/constants";
 import { Pagination } from "./pagination";
-import { useState } from "react";
 import { User } from "./user";
 import { paginate } from "../utils/paginate";
+import PropTypes from "prop-types";
 
 export const Users = (props) => {
   const { users } = props;
@@ -47,4 +47,9 @@ export const Users = (props) => {
       />
     </>
   );
+};
+
+Users.propTypes = {
+  onDelete: PropTypes.func.isRequired,
+  users: PropTypes.arrayOf(PropTypes.object)
 };

@@ -43,5 +43,21 @@ export const User = (props) => {
 };
 
 User.propTypes = {
-  
+  onDeleteUser: PropTypes.func.isRequired,
+  user: PropTypes.exact({
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    profession: PropTypes.exact({
+      _id: PropTypes.string,
+      name: PropTypes.string
+    }),
+    qualities: PropTypes.arrayOf(PropTypes.exact({
+      _id: PropTypes.string,
+      name: PropTypes.string,
+      color: PropTypes.string
+    })),
+    completedMeetings: PropTypes.number,
+    rate: PropTypes.number,
+    bookmark: PropTypes.bool
+  })
 };
