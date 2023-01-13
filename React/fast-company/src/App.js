@@ -35,9 +35,9 @@ export const App = () => {
     }
 
     return (
-        <>
+        <div>
             <SearchStatus length={usersAmount} />
             <Users users={users} onDelete={deleteUser} />
-        </>
+        </div>
     );
 };
