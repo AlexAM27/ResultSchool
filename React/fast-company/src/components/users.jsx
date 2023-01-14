@@ -13,19 +13,27 @@ export const Users = (props) => {
     const pageSize = 4;
     const [professions, setProfessions] = useState();
     const [currentPage, setCurrentPage] = useState(1);
+    const [selectedProf, setSelectedProf] = useState();
 
     useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfessions(data));
-    }, []);
+        api.professions.fetchAll().then((data) => setProfessions(data), []);
+    });
 
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
 
-    const userCrop = paginate(users, currentPage, pageSize);
+    const filteredUsers = selectedProf
+        ? users.filter((user) => user.profession === selectedProf)
+        : users;
+    const userCrop = paginate(filteredUsers, currentPage, pageSize);
 
-    const onHandleProfessionSelect = (params) => {
-        console.log(params);
+    const clearAll = () => {
+        setSelectedProf();
+    };
+
+    const onHandleProfessionSelect = (item) => {
+        setSelectedProf(item);
     };
 
     const renderUsersTable = () => {
@@ -37,12 +45,19 @@ export const Users = (props) => {
     return (
         <>
             {professions && (
-                <GroupList
-                    items={professions}
-                    onItemSelect={onHandleProfessionSelect}
-                    valueProperty="_id"
-                    contentProperty="name"
-                />
+                <>
+                    <GroupList
+                        selectedItem={selectedProf}
+                        items={professions}
+                        onItemSelect={onHandleProfessionSelect}
+                    />
+                    <button
+                        className="btn btn-secondary mt-2"
+                        onClick={clearAll}
+                    >
+                        Очистить все
+                    </button>
+                </>
             )}
             <table className="table">
                 <thead style={{ borderBottom: "5px" }}>
