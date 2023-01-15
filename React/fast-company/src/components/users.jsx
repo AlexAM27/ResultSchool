@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import * as constants from "../utils/constants";
 import { Pagination } from "./pagination";
+import _ from "lodash";
 import { User } from "./user";
 import { paginate } from "../utils/paginate";
 import { GroupList } from "./groupList";
-import api from "../api";
+import API from "../api";
 import { SearchStatus } from "./searchStatus";
 import PropTypes from "prop-types";
 
@@ -16,7 +17,7 @@ export const Users = (props) => {
     const [selectedProf, setSelectedProf] = useState();
 
     useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfessions(data), []);
+        API.professions.fetchAll().then((data) => setProfessions(data), []);
     });
 
     useEffect(() => {
@@ -28,7 +29,7 @@ export const Users = (props) => {
     };
 
     const filteredUsers = selectedProf
-        ? users.filter((user) => user.profession === selectedProf)
+        ? users.filter((user) => _.isEqual(user.profession, selectedProf))
         : users;
     const count = filteredUsers.length;
     const userCrop = paginate(filteredUsers, currentPage, pageSize);

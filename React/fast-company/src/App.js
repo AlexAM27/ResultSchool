@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Users } from "./components/users";
-import api from "./api";
+import API from "./api";
 import * as constants from "./utils/constants";
 
 export const App = () => {
-    const usersList = api.users.fetchAll();
-    const [usersAmount, setUsersAmount] = useState(usersList.length);
-    const [users, setUsersList] = useState(usersList);
+    const [usersAmount, setUsersAmount] = useState(0);
+    const [users, setUsersList] = useState();
+
+    useEffect(() => {
+        API.users.fetchAll().then((data) => {
+            setUsersAmount(data.length);
+            setUsersList(data);
+        });
+    });
 
     const handleUsersList = (id) => {
         setUsersList((prevState) =>

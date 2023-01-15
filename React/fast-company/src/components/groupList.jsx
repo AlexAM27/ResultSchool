@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import PropTypes from "prop-types";
 
 export const GroupList = ({
@@ -11,12 +12,14 @@ export const GroupList = ({
     return (
         <>
             <ul className="list-group">
-                {Object.keys(items).map((item) => (
+                {Object.keys({ ...items }).map((item) => (
                     <li
                         key={items[item][valueProperty]}
                         className={
                             "list-group-item" +
-                            (items[item] === selectedItem ? " active" : "")
+                            (_.isEqual(items[item], selectedItem)
+                                ? " active"
+                                : "")
                         }
                         onClick={() => onItemSelect(items[item])}
                         role="button"
@@ -35,7 +38,7 @@ GroupList.defaultProps = {
 };
 
 GroupList.propTypes = {
-    items: PropTypes.object.isRequired,
+    items: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
     valueProperty: PropTypes.string.isRequired,
     contentProperty: PropTypes.string.isRequired,
     onItemSelect: PropTypes.func,
