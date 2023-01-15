@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 export const Users = (props) => {
     const { users } = props;
-    const pageSize = 4;
+    const pageSize = 2;
     const [professions, setProfessions] = useState();
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProf, setSelectedProf] = useState();
