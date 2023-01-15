@@ -5,11 +5,11 @@ import { User } from "./user";
 import { paginate } from "../utils/paginate";
 import { GroupList } from "./groupList";
 import api from "../api";
+import { SearchStatus } from "./searchStatus";
 import PropTypes from "prop-types";
 
 export const Users = (props) => {
     const { users } = props;
-    const count = users.length;
     const pageSize = 4;
     const [professions, setProfessions] = useState();
     const [currentPage, setCurrentPage] = useState(1);
@@ -19,6 +19,10 @@ export const Users = (props) => {
         api.professions.fetchAll().then((data) => setProfessions(data), []);
     });
 
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [selectedProf]);
+
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
@@ -26,6 +30,7 @@ export const Users = (props) => {
     const filteredUsers = selectedProf
         ? users.filter((user) => user.profession === selectedProf)
         : users;
+    const count = filteredUsers.length;
     const userCrop = paginate(filteredUsers, currentPage, pageSize);
 
     const clearAll = () => {
@@ -43,9 +48,9 @@ export const Users = (props) => {
     };
 
     return (
-        <>
+        <div className="d-flex">
             {professions && (
-                <>
+                <div className="d-flex flex-column flex-shrink-0 p-3">
                     <GroupList
                         selectedItem={selectedProf}
                         items={professions}
@@ -57,41 +62,46 @@ export const Users = (props) => {
                     >
                         Очистить все
                     </button>
-                </>
+                </div>
             )}
-            <table className="table">
-                <thead style={{ borderBottom: "5px" }}>
-                    <tr>
-                        <th scope="col">
-                            {constants.USERS_TABLE_HEADER_LABEL_NAME}
-                        </th>
-                        <th scope="col">
-                            {constants.USERS_TABLE_HEADER_LABEL_QUALITY}
-                        </th>
-                        <th scope="col">
-                            {constants.USERS_TABLE_HEADER_LABEL_PROFESSION}
-                        </th>
-                        <th scope="col">
-                            {constants.USERS_TABLE_HEADER_LABEL_MEETINGS}
-                        </th>
-                        <th scope="col">
-                            {constants.USERS_TABLE_HEADER_LABEL_RATE}
-                        </th>
-                        <th scope="col">
-                            {constants.USERS_TABLE_HEADER_LABEL_FAVORITE}
-                        </th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>{renderUsersTable()}</tbody>
-            </table>
-            <Pagination
-                itemsCount={count}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                onPageChange={handlePageChange}
-            />
-        </>
+            <div className="d-flex flex-column">
+                <SearchStatus length={count} />
+                <table className="table">
+                    <thead style={{ borderBottom: "5px" }}>
+                        <tr>
+                            <th scope="col">
+                                {constants.USERS_TABLE_HEADER_LABEL_NAME}
+                            </th>
+                            <th scope="col">
+                                {constants.USERS_TABLE_HEADER_LABEL_QUALITY}
+                            </th>
+                            <th scope="col">
+                                {constants.USERS_TABLE_HEADER_LABEL_PROFESSION}
+                            </th>
+                            <th scope="col">
+                                {constants.USERS_TABLE_HEADER_LABEL_MEETINGS}
+                            </th>
+                            <th scope="col">
+                                {constants.USERS_TABLE_HEADER_LABEL_RATE}
+                            </th>
+                            <th scope="col">
+                                {constants.USERS_TABLE_HEADER_LABEL_FAVORITE}
+                            </th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>{renderUsersTable()}</tbody>
+                </table>
+                <div className="d-flex justify-content-center">
+                    <Pagination
+                        itemsCount={count}
+                        pageSize={pageSize}
+                        currentPage={currentPage}
+                        onPageChange={handlePageChange}
+                    />
+                </div>
+            </div>
+        </div>
     );
 };
 

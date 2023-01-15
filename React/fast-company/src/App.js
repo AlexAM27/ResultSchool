@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Users } from "./components/users";
 import api from "./api";
 import * as constants from "./utils/constants";
-import { SearchStatus } from "./components/searchStatus";
 
 export const App = () => {
     const usersList = api.users.fetchAll();
@@ -36,7 +35,6 @@ export const App = () => {
 
     return (
         <div>
-            <SearchStatus length={usersAmount} />
             <Users users={users} onDelete={deleteUser} />
         </div>
     );
