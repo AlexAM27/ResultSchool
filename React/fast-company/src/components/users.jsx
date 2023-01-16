@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import * as constants from "../utils/constants";
 import { Pagination } from "./pagination";
 import _ from "lodash";
-import { User } from "./user";
 import { paginate } from "../utils/paginate";
 import { GroupList } from "./groupList";
 import API from "../api";
 import { SearchStatus } from "./searchStatus";
+import { UsersTable } from "./usersTable";
 import PropTypes from "prop-types";
 
 export const Users = (props) => {
     const { users } = props;
-    const pageSize = 2;
+    const pageSize = 12;
     const [professions, setProfessions] = useState();
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProf, setSelectedProf] = useState();
+    const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
 
     useEffect(() => {
         API.professions.fetchAll().then((data) => setProfessions(data), []);
@@ -32,7 +32,8 @@ export const Users = (props) => {
         ? users.filter((user) => _.isEqual(user.profession, selectedProf))
         : users;
     const count = filteredUsers.length;
-    const userCrop = paginate(filteredUsers, currentPage, pageSize);
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order]);
+    const userCrop = paginate(sortedUsers, currentPage, pageSize);
 
     const clearAll = () => {
         setSelectedProf();
@@ -42,10 +43,15 @@ export const Users = (props) => {
         setSelectedProf(item);
     };
 
-    const renderUsersTable = () => {
-        return userCrop.map((user) => (
-            <User key={user._id} user={user} onDeleteUser={props.onDelete} />
-        ));
+    const handleSort = (item) => {
+        if (sortBy.iter === item) {
+            setSortBy((prevState) => ({
+                ...prevState,
+                order: prevState.order === "asc" ? "desc" : "asc"
+            }));
+        } else {
+            setSortBy({ iter: item, order: "asc" });
+        }
     };
 
     return (
@@ -67,32 +73,13 @@ export const Users = (props) => {
             )}
             <div className="d-flex flex-column">
                 <SearchStatus length={count} />
-                <table className="table">
-                    <thead style={{ borderBottom: "5px" }}>
-                        <tr>
-                            <th scope="col">
-                                {constants.USERS_TABLE_HEADER_LABEL_NAME}
-                            </th>
-                            <th scope="col">
-                                {constants.USERS_TABLE_HEADER_LABEL_QUALITY}
-                            </th>
-                            <th scope="col">
-                                {constants.USERS_TABLE_HEADER_LABEL_PROFESSION}
-                            </th>
-                            <th scope="col">
-                                {constants.USERS_TABLE_HEADER_LABEL_MEETINGS}
-                            </th>
-                            <th scope="col">
-                                {constants.USERS_TABLE_HEADER_LABEL_RATE}
-                            </th>
-                            <th scope="col">
-                                {constants.USERS_TABLE_HEADER_LABEL_FAVORITE}
-                            </th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>{renderUsersTable()}</tbody>
-                </table>
+                {count > 0 && (
+                    <UsersTable
+                        users={userCrop}
+                        onDelete={props.onDelete}
+                        onSort={handleSort}
+                    />
+                )}
                 <div className="d-flex justify-content-center">
                     <Pagination
                         itemsCount={count}
