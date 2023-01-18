@@ -44,14 +44,7 @@ export const Users = (props) => {
     };
 
     const handleSort = (item) => {
-        if (sortBy.iter === item) {
-            setSortBy((prevState) => ({
-                ...prevState,
-                order: prevState.order === "asc" ? "desc" : "asc"
-            }));
-        } else {
-            setSortBy({ iter: item, order: "asc" });
-        }
+        setSortBy(item);
     };
 
     return (
@@ -78,6 +71,7 @@ export const Users = (props) => {
                         users={userCrop}
                         onDelete={props.onDelete}
                         onSort={handleSort}
+                        currentSort={sortBy}
                     />
                 )}
                 <div className="d-flex justify-content-center">
