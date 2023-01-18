@@ -71,7 +71,7 @@ export const Users = (props) => {
                         users={userCrop}
                         onDelete={props.onDelete}
                         onSort={handleSort}
-                        currentSort={sortBy}
+                        selectedSort={sortBy}
                     />
                 )}
                 <div className="d-flex justify-content-center">
