@@ -8,6 +8,17 @@ export const App = () => {
         setUsersList(users.filter((user) => user._id !== userId));
     };
 
+    const handleToggleBookMark = (id) => {
+        setUsersList(
+            users.map((user) => {
+                if (user._id === id) {
+                    return { ...user, bookmark: !user.bookmark };
+                }
+                return user;
+            })
+        );
+    };
+
     useEffect(() => {
         API.users.fetchAll().then((data) => {
             setUsersList(data);
@@ -16,7 +27,11 @@ export const App = () => {
 
     return (
         <div>
-            <Users users={users} onDelete={handleDelete} />
+            <Users
+                users={users}
+                onDelete={handleDelete}
+                onToggleBookMark={handleToggleBookMark}
+            />
         </div>
     );
 };

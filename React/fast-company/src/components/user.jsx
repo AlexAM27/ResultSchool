@@ -1,21 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import * as constants from "../utils/constants";
 import { Bookmark } from "./bookmark";
 import { Qualitie } from "./qualitie";
 import PropTypes from "prop-types";
 
-export const User = (props) => {
-    const { user, onDeleteUser } = props;
-    const [isFavorite, setFavorite] = useState(user.bookmark);
-
+export const User = ({ user, onDeleteUser, onToggleBookMark }) => {
     const renderUserQualities = (user) => {
         return user.qualities.map((quality) => (
             <Qualitie key={quality._id} {...quality} />
         ));
-    };
-
-    const handleFavoriteUser = () => {
-        setFavorite((prevState) => !prevState);
     };
 
     return (
@@ -26,9 +19,10 @@ export const User = (props) => {
             <td>{user.completedMeetings}</td>
             <td>{user.rate}/5</td>
             <td>
-                <button onClick={handleFavoriteUser}>
-                    <Bookmark favorite={isFavorite} />
-                </button>
+                <Bookmark
+                    status={user.bookmark}
+                    onClick={() => onToggleBookMark(user._id)}
+                />
             </td>
             <td>
                 <button
@@ -61,5 +55,6 @@ User.propTypes = {
         completedMeetings: PropTypes.number,
         rate: PropTypes.number,
         bookmark: PropTypes.bool
-    })
+    }),
+    onToggleBookMark: PropTypes.func.isRequired
 };

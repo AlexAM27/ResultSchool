@@ -8,8 +8,7 @@ import { SearchStatus } from "./searchStatus";
 import { UsersTable } from "./usersTable";
 import PropTypes from "prop-types";
 
-export const Users = (props) => {
-    const { users } = props;
+export const Users = ({ users, onDelete, onToggleBookMark }) => {
     const pageSize = 12;
     const [professions, setProfessions] = useState();
     const [currentPage, setCurrentPage] = useState(1);
@@ -69,9 +68,10 @@ export const Users = (props) => {
                 {count > 0 && (
                     <UsersTable
                         users={userCrop}
-                        onDelete={props.onDelete}
+                        onDelete={onDelete}
                         onSort={handleSort}
                         selectedSort={sortBy}
+                        onToggleBookMark={onToggleBookMark}
                     />
                 )}
                 <div className="d-flex justify-content-center">
@@ -89,5 +89,6 @@ export const Users = (props) => {
 
 Users.propTypes = {
     onDelete: PropTypes.func.isRequired,
-    users: PropTypes.arrayOf(PropTypes.object)
+    users: PropTypes.arrayOf(PropTypes.object),
+    onToggleBookMark: PropTypes.func.isRequired
 };

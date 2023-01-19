@@ -4,7 +4,13 @@ import { User } from "./user";
 import PropTypes from "prop-types";
 import { TableHeader } from "./tableHeader";
 
-export const UsersTable = ({ users, onDelete, selectedSort, onSort }) => {
+export const UsersTable = ({
+    users,
+    onDelete,
+    selectedSort,
+    onSort,
+    onToggleBookMark
+}) => {
     const columns = {
         name: { iter: "name", name: constants.USERS_TABLE_HEADER_LABEL_NAME },
         quality: { name: constants.USERS_TABLE_HEADER_LABEL_QUALITY },
@@ -28,7 +34,12 @@ export const UsersTable = ({ users, onDelete, selectedSort, onSort }) => {
             <TableHeader {...{ onSort, selectedSort, columns }} />
             <tbody>
                 {users.map((user) => (
-                    <User key={user._id} user={user} onDeleteUser={onDelete} />
+                    <User
+                        key={user._id}
+                        user={user}
+                        onDeleteUser={onDelete}
+                        onToggleBookMark={onToggleBookMark}
+                    />
                 ))}
             </tbody>
         </table>
@@ -39,5 +50,6 @@ UsersTable.propTypes = {
     onDelete: PropTypes.func.isRequired,
     users: PropTypes.arrayOf(PropTypes.object),
     onSort: PropTypes.func,
-    selectedSort: PropTypes.object
+    selectedSort: PropTypes.object,
+    onToggleBookMark: PropTypes.func.isRequired
 };
