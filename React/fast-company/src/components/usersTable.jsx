@@ -1,11 +1,10 @@
 import React from "react";
 import * as constants from "../utils/constants";
-// import { User } from "./user";
 import PropTypes from "prop-types";
-import { TableHeader } from "./tableHeader";
-import { TableBody } from "./tableBody";
+
 import { Bookmark } from "./bookmark";
 import { QualitiesList } from "./qualitiesList";
+import { Table } from "./table";
 
 export const UsersTable = ({
     users,
@@ -51,20 +50,12 @@ export const UsersTable = ({
         }
     };
     return (
-        <table className="table">
-            <TableHeader {...{ onSort, selectedSort, columns }} />
-            <TableBody {...{ columns, data: users }} />
-            {/* <tbody>
-                {users.map((user) => (
-                    <User
-                        key={user._id}
-                        user={user}
-                        onDeleteUser={onDelete}
-                        onToggleBookMark={onToggleBookMark}
-                    />
-                ))}
-            </tbody> */}
-        </table>
+        <Table
+            onSort={onSort}
+            selectedSort={selectedSort}
+            columns={columns}
+            data={users}
+        />
     );
 };
 
