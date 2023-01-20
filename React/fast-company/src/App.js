@@ -20,10 +20,11 @@ export const App = () => {
     };
 
     useEffect(() => {
+        console.log("data");
         API.users.fetchAll().then((data) => {
             setUsersList(data);
         });
-    });
+    }, []);
 
     return (
         <div>
