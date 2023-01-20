@@ -1,8 +1,9 @@
 import React from "react";
 import * as constants from "../utils/constants";
-import { User } from "./user";
+// import { User } from "./user";
 import PropTypes from "prop-types";
 import { TableHeader } from "./tableHeader";
+import { TableBody } from "./tableBody";
 
 export const UsersTable = ({
     users,
@@ -12,19 +13,19 @@ export const UsersTable = ({
     onToggleBookMark
 }) => {
     const columns = {
-        name: { iter: "name", name: constants.USERS_TABLE_HEADER_LABEL_NAME },
+        name: { path: "name", name: constants.USERS_TABLE_HEADER_LABEL_NAME },
         quality: { name: constants.USERS_TABLE_HEADER_LABEL_QUALITY },
         profession: {
-            iter: "profession.name",
+            path: "profession.name",
             name: constants.USERS_TABLE_HEADER_LABEL_PROFESSION
         },
         completedMeetings: {
-            iter: "completedMeetings",
+            path: "completedMeetings",
             name: constants.USERS_TABLE_HEADER_LABEL_MEETINGS
         },
-        rate: { iter: "rate", name: constants.USERS_TABLE_HEADER_LABEL_RATE },
+        rate: { path: "rate", name: constants.USERS_TABLE_HEADER_LABEL_RATE },
         bookmark: {
-            iter: "bookmark",
+            path: "bookmark",
             name: constants.USERS_TABLE_HEADER_LABEL_FAVORITE
         },
         delete: {}
@@ -32,7 +33,8 @@ export const UsersTable = ({
     return (
         <table className="table">
             <TableHeader {...{ onSort, selectedSort, columns }} />
-            <tbody>
+            <TableBody {...{ columns, data: users }} />
+            {/* <tbody>
                 {users.map((user) => (
                     <User
                         key={user._id}
@@ -41,7 +43,7 @@ export const UsersTable = ({
                         onToggleBookMark={onToggleBookMark}
                     />
                 ))}
-            </tbody>
+            </tbody> */}
         </table>
     );
 };
