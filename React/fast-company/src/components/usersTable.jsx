@@ -4,6 +4,8 @@ import * as constants from "../utils/constants";
 import PropTypes from "prop-types";
 import { TableHeader } from "./tableHeader";
 import { TableBody } from "./tableBody";
+import { Bookmark } from "./bookmark";
+import { QualitiesList } from "./qualitiesList";
 
 export const UsersTable = ({
     users,
@@ -14,7 +16,10 @@ export const UsersTable = ({
 }) => {
     const columns = {
         name: { path: "name", name: constants.USERS_TABLE_HEADER_LABEL_NAME },
-        quality: { name: constants.USERS_TABLE_HEADER_LABEL_QUALITY },
+        quality: {
+            name: constants.USERS_TABLE_HEADER_LABEL_QUALITY,
+            component: (user) => <QualitiesList qualities={user.qualities} />
+        },
         profession: {
             path: "profession.name",
             name: constants.USERS_TABLE_HEADER_LABEL_PROFESSION
@@ -26,9 +31,24 @@ export const UsersTable = ({
         rate: { path: "rate", name: constants.USERS_TABLE_HEADER_LABEL_RATE },
         bookmark: {
             path: "bookmark",
-            name: constants.USERS_TABLE_HEADER_LABEL_FAVORITE
+            name: constants.USERS_TABLE_HEADER_LABEL_FAVORITE,
+            component: (user) => (
+                <Bookmark
+                    status={user.bookmark}
+                    onClick={() => onToggleBookMark(user._id)}
+                />
+            )
         },
-        delete: {}
+        delete: {
+            component: (user) => (
+                <button
+                    className={constants.DELETE_BUTTON}
+                    onClick={() => onDelete(user._id)}
+                >
+                    {constants.DELETE_USER_BUTTON_LABEL}
+                </button>
+            )
+        }
     };
     return (
         <table className="table">

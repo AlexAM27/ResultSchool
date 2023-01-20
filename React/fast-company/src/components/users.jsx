@@ -31,7 +31,7 @@ export const Users = ({ users, onDelete, onToggleBookMark }) => {
         ? users.filter((user) => _.isEqual(user.profession, selectedProf))
         : users;
     const count = filteredUsers.length;
-    const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order]);
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
     const userCrop = paginate(sortedUsers, currentPage, pageSize);
 
     const clearAll = () => {
