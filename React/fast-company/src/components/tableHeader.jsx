@@ -1,4 +1,5 @@
 import React from "react";
+import { SortArrow } from "./sortArrow";
 import PropTypes from "prop-types";
 
 export const TableHeader = ({ onSort, selectedSort, columns }) => {
@@ -9,7 +10,16 @@ export const TableHeader = ({ onSort, selectedSort, columns }) => {
                 order: selectedSort.order === "asc" ? "desc" : "asc"
             });
         } else {
+            console.log(item);
             onSort({ path: item, order: "asc" });
+        }
+    };
+
+    const renderSortArrow = (item) => {
+        if (selectedSort.path === item) {
+            return <SortArrow order={selectedSort.order} />;
+        } else {
+            return "";
         }
     };
 
@@ -28,6 +38,8 @@ export const TableHeader = ({ onSort, selectedSort, columns }) => {
                         scope="col"
                     >
                         {columns[column].name}
+                        {columns[column].sort &&
+                            renderSortArrow(columns[column].path)}
                     </th>
                 ))}
             </tr>

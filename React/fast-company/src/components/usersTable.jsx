@@ -14,20 +14,30 @@ export const UsersTable = ({
     onToggleBookMark
 }) => {
     const columns = {
-        name: { path: "name", name: constants.USERS_TABLE_HEADER_LABEL_NAME },
+        name: {
+            path: "name",
+            name: constants.USERS_TABLE_HEADER_LABEL_NAME,
+            sort: true
+        },
         quality: {
             name: constants.USERS_TABLE_HEADER_LABEL_QUALITY,
             component: (user) => <QualitiesList qualities={user.qualities} />
         },
         profession: {
             path: "profession.name",
-            name: constants.USERS_TABLE_HEADER_LABEL_PROFESSION
+            name: constants.USERS_TABLE_HEADER_LABEL_PROFESSION,
+            sort: true
         },
         completedMeetings: {
             path: "completedMeetings",
-            name: constants.USERS_TABLE_HEADER_LABEL_MEETINGS
+            name: constants.USERS_TABLE_HEADER_LABEL_MEETINGS,
+            sort: true
         },
-        rate: { path: "rate", name: constants.USERS_TABLE_HEADER_LABEL_RATE },
+        rate: {
+            path: "rate",
+            name: constants.USERS_TABLE_HEADER_LABEL_RATE,
+            sort: true
+        },
         bookmark: {
             path: "bookmark",
             name: constants.USERS_TABLE_HEADER_LABEL_FAVORITE,
@@ -36,7 +46,8 @@ export const UsersTable = ({
                     status={user.bookmark}
                     onClick={() => onToggleBookMark(user._id)}
                 />
-            )
+            ),
+            sort: true
         },
         delete: {
             component: (user) => (
