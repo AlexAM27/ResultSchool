@@ -8,7 +8,7 @@ import { SearchStatus } from "./searchStatus";
 import { UsersTable } from "./usersTable";
 
 export const Users = () => {
-    const pageSize = 12;
+    const pageSize = 6;
     const [professions, setProfessions] = useState();
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProf, setSelectedProf] = useState();
