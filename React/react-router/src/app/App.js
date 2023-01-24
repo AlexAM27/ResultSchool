@@ -6,7 +6,6 @@ import Login from "./components/login";
 import Posts from "./components/posts";
 import NotFound from "./components/not-found";
 
-
 function App() {
     return (
         <div>
@@ -16,13 +15,10 @@ function App() {
                 <Route path="/" exact component={Home} />
                 <Route path="/dashboard" component={Dashboard} />
                 <Route path="/login" component={Login} />
-                <Route
-                    path="/posts/:postId?"
-                    component={Posts}
-                />
-                <Route path="/404" component={NotFound}/>
-                <Redirect from="/admin" to="/dashboard"/>
-                <Redirect to="/404"/>
+                <Route path="/posts/:postId?" component={Posts} />
+                <Route path="/404" component={NotFound} />
+                <Redirect from="/admin" to="/dashboard" />
+                <Redirect to="/404" />
             </Switch>
         </div>
     );
