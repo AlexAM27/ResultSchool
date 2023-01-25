@@ -76,50 +76,52 @@ export const Users = () => {
             setSortBy(item);
         };
 
+        if (userId) {
+            return (
+                <div style={{ marginLeft: "10px" }}>
+                    <User id={userId} />
+                </div>
+            );
+        }
+
         return (
-            <>
-                {userId ? (
-                    <User id={userId} users={users} />
-                ) : (
-                    <div className="d-flex">
-                        {professions && (
-                            <div className="d-flex flex-column flex-shrink-0 p-3">
-                                <GroupList
-                                    selectedItem={selectedProf}
-                                    items={professions}
-                                    onItemSelect={onHandleProfessionSelect}
-                                />
-                                <button
-                                    className="btn btn-secondary mt-2"
-                                    onClick={clearAll}
-                                >
-                                    Очистить все
-                                </button>
-                            </div>
-                        )}
-                        <div className="d-flex flex-column">
-                            <SearchStatus length={count} />
-                            {count > 0 && (
-                                <UsersTable
-                                    users={userCrop}
-                                    onDelete={handleDelete}
-                                    onSort={handleSort}
-                                    selectedSort={sortBy}
-                                    onToggleBookMark={handleToggleBookMark}
-                                />
-                            )}
-                            <div className="d-flex justify-content-center">
-                                <Pagination
-                                    itemsCount={count}
-                                    pageSize={pageSize}
-                                    currentPage={currentPage}
-                                    onPageChange={handlePageChange}
-                                />
-                            </div>
-                        </div>
+            <div className="d-flex">
+                {professions && (
+                    <div className="d-flex flex-column flex-shrink-0 p-3">
+                        <GroupList
+                            selectedItem={selectedProf}
+                            items={professions}
+                            onItemSelect={onHandleProfessionSelect}
+                        />
+                        <button
+                            className="btn btn-secondary mt-2"
+                            onClick={clearAll}
+                        >
+                            Очистить все
+                        </button>
                     </div>
                 )}
-            </>
+                <div className="d-flex flex-column">
+                    <SearchStatus length={count} />
+                    {count > 0 && (
+                        <UsersTable
+                            users={userCrop}
+                            onDelete={handleDelete}
+                            onSort={handleSort}
+                            selectedSort={sortBy}
+                            onToggleBookMark={handleToggleBookMark}
+                        />
+                    )}
+                    <div className="d-flex justify-content-center">
+                        <Pagination
+                            itemsCount={count}
+                            pageSize={pageSize}
+                            currentPage={currentPage}
+                            onPageChange={handlePageChange}
+                        />
+                    </div>
+                </div>
+            </div>
         );
     }
     return "loading...";
