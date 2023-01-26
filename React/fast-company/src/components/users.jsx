@@ -6,15 +6,19 @@ import { GroupList } from "./groupList";
 import API from "../api";
 import { SearchStatus } from "./searchStatus";
 import { UsersTable } from "./usersTable";
+import { useParams } from "react-router-dom";
+import User from "./user";
 
 export const Users = () => {
-    const pageSize = 12;
+    const pageSize = 6;
     const [professions, setProfessions] = useState();
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
 
     const [users, setUsersList] = useState();
+    const params = useParams();
+    const { userId } = params;
     const handleDelete = (userId) => {
         setUsersList(users.filter((user) => user._id !== userId));
     };
@@ -71,6 +75,14 @@ export const Users = () => {
         const handleSort = (item) => {
             setSortBy(item);
         };
+
+        if (userId) {
+            return (
+                <div style={{ marginLeft: "10px" }}>
+                    <User id={userId} />
+                </div>
+            );
+        }
 
         return (
             <div className="d-flex">
