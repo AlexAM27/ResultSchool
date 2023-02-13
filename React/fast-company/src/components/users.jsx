@@ -19,20 +19,6 @@ export const Users = () => {
     const [users, setUsersList] = useState();
     const params = useParams();
     const { userId } = params;
-    const handleDelete = (userId) => {
-        setUsersList(users.filter((user) => user._id !== userId));
-    };
-
-    const handleToggleBookMark = (id) => {
-        setUsersList(
-            users.map((user) => {
-                if (user._id === id) {
-                    return { ...user, bookmark: !user.bookmark };
-                }
-                return user;
-            })
-        );
-    };
 
     useEffect(() => {
         API.users.fetchAll().then((data) => {
@@ -47,6 +33,21 @@ export const Users = () => {
     useEffect(() => {
         setCurrentPage(1);
     }, [selectedProf]);
+
+    const handleDelete = (userId) => {
+        setUsersList(users.filter((user) => user._id !== userId));
+    };
+
+    const handleToggleBookMark = (id) => {
+        setUsersList(
+            users.map((user) => {
+                if (user._id === id) {
+                    return { ...user, bookmark: !user.bookmark };
+                }
+                return user;
+            })
+        );
+    };
 
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
