@@ -6,6 +6,7 @@ export function validator(data, config) {
             case "isRequired":
                 if (data.trim() === "") return config.message;
                 break;
+
             default:
                 break;
         }
@@ -13,11 +14,14 @@ export function validator(data, config) {
 
     for (const fieldName in data) {
         for (const validateMethod in config[fieldName]) {
-            errors[fieldName] = validate(
+            const error = validate(
                 validateMethod,
                 data[fieldName],
                 config[fieldName][validateMethod]
             );
+            if (error) {
+                errors[fieldName] = error;
+            }
         }
     }
 
