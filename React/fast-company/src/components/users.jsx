@@ -15,10 +15,13 @@ export const Users = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
+    const [searchValue, setSearchValue] = useState("");
 
     const [users, setUsersList] = useState();
     const params = useParams();
     const { userId } = params;
+
+    let onSearch = false;
 
     useEffect(() => {
         API.users.fetchAll().then((data) => {
@@ -53,10 +56,25 @@ export const Users = () => {
         setCurrentPage(pageIndex);
     };
 
+    const userSearchF = () => {
+        if (selectedProf) {
+            return users.filter((user) =>
+                _.isEqual(user.profession, selectedProf)
+            );
+        } else if (searchValue) {
+            return users.filter((user) =>
+                user.name.toLowerCase().includes(searchValue)
+            );
+        } else {
+            return users;
+        }
+    };
+
     if (users) {
-        const filteredUsers = selectedProf
-            ? users.filter((user) => _.isEqual(user.profession, selectedProf))
-            : users;
+        // const filteredUsers = selectedProf
+        //     ? users.filter((user) => _.isEqual(user.profession, selectedProf))
+        //     : users;
+        const filteredUsers = userSearchF();
         const count = filteredUsers.length;
         const sortedUsers = _.orderBy(
             filteredUsers,
@@ -104,6 +122,14 @@ export const Users = () => {
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <input
+                        type="text"
+                        value={searchValue}
+                        onChange={(e) => {
+                            setSearchValue(e.target.value);
+                            onSearch = true;
+                        }}
+                    />
                     {count > 0 && (
                         <UsersTable
                             users={userCrop}
