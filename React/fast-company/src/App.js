@@ -3,7 +3,7 @@ import { Users } from "./components/users";
 import NavBar from "./components/navBar";
 import { Route, Switch } from "react-router-dom";
 import Main from "./components/main";
-import Login from "./components/login";
+import Login from "./layouts/login";
 
 export const App = () => {
     return (
