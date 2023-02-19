@@ -8,6 +8,7 @@ import { SearchStatus } from "./searchStatus";
 import { UsersTable } from "./usersTable";
 import { useParams } from "react-router-dom";
 import User from "./user";
+import UserSearch from "./userSearch";
 
 export const Users = () => {
     const pageSize = 6;
@@ -15,13 +16,11 @@ export const Users = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
-    const [searchValue, setSearchValue] = useState("");
+    const [userSearchValue, setUserSearchValue] = useState("");
 
     const [users, setUsersList] = useState();
     const params = useParams();
     const { userId } = params;
-
-    let onSearch = false;
 
     useEffect(() => {
         API.users.fetchAll().then((data) => {
@@ -56,25 +55,24 @@ export const Users = () => {
         setCurrentPage(pageIndex);
     };
 
-    const userSearchF = () => {
+    const handleUserList = () => {
         if (selectedProf) {
             return users.filter((user) =>
                 _.isEqual(user.profession, selectedProf)
             );
-        } else if (searchValue) {
+        }
+        if (userSearchValue) {
             return users.filter((user) =>
-                user.name.toLowerCase().includes(searchValue)
+                user.name.toLowerCase().includes(userSearchValue.toLowerCase())
             );
-        } else {
+        }
+        if (!selectedProf && !userSearchValue) {
             return users;
         }
     };
 
     if (users) {
-        // const filteredUsers = selectedProf
-        //     ? users.filter((user) => _.isEqual(user.profession, selectedProf))
-        //     : users;
-        const filteredUsers = userSearchF();
+        const filteredUsers = handleUserList();
         const count = filteredUsers.length;
         const sortedUsers = _.orderBy(
             filteredUsers,
@@ -83,11 +81,20 @@ export const Users = () => {
         );
         const userCrop = paginate(sortedUsers, currentPage, pageSize);
 
+        const handleUserSearchChange = ({ target }) => {
+            setUserSearchValue(target.value);
+        };
+
+        const clearUserSearch = () => {
+            setUserSearchValue("");
+        };
+
         const clearAll = () => {
             setSelectedProf();
         };
 
         const onHandleProfessionSelect = (item) => {
+            clearUserSearch();
             setSelectedProf(item);
         };
 
@@ -122,14 +129,13 @@ export const Users = () => {
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
-                    <input
-                        type="text"
-                        value={searchValue}
-                        onChange={(e) => {
-                            setSearchValue(e.target.value);
-                            onSearch = true;
-                        }}
+
+                    <UserSearch
+                        value={userSearchValue}
+                        clearAll={clearAll}
+                        onChange={handleUserSearchChange}
                     />
+
                     {count > 0 && (
                         <UsersTable
                             users={userCrop}
