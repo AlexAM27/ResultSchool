@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { TableHeader } from "./tableHeader";
 import { TableBody } from "./tableBody";
 
-export const Table = ({ onSort, selectedSort, columns, data, children }) => {
+const Table = ({ onSort, selectedSort, columns, data, children }) => {
     return (
         <table className="table">
             {children || (
@@ -23,3 +23,5 @@ Table.propTypes = {
     data: PropTypes.array,
     children: PropTypes.array
 };
+
+export default Table;

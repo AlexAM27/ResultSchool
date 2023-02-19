@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import API from "../api";
 import _ from "lodash";
-import { QualitiesList } from "./qualitiesList";
+import { QualitiesList } from "./ui/qualities/qualitiesList";
 
 const User = ({ id }) => {
     const [user, setUser] = useState();

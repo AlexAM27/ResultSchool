@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Pagination } from "./pagination";
+import { Pagination } from "./common/pagination";
 import _ from "lodash";
 import { paginate } from "../utils/paginate";
-import { GroupList } from "./groupList";
+import { GroupList } from "./common/groupList";
 import API from "../api";
-import { SearchStatus } from "./searchStatus";
+import { SearchStatus } from "./ui/searchStatus";
 import { UsersTable } from "./usersTable";
 import { useParams } from "react-router-dom";
 import User from "./user";
