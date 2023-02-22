@@ -6,7 +6,8 @@ const MultiSelectField = ({
     label,
     options,
     onChange,
-    name
+    name,
+    defaultValue
     // error
 }) => {
     // const getInputClasses = () => {
@@ -36,19 +37,18 @@ const MultiSelectField = ({
                 onChange={handleChange}
                 name={name}
                 closeMenuOnSelect={false}
+                defaultValue={defaultValue}
             />
-            {/* {error && <div className="invalid-feedback">{error}</div>} */}
         </div>
     );
 };
 
 MultiSelectField.propTypes = {
     label: PropTypes.string,
-    options: PropTypes.oneOfType(PropTypes.object, PropTypes.array),
-    // value: PropTypes.string,
+    defaultValue: PropTypes.array,
+    options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     name: PropTypes.object,
     onChange: PropTypes.func
-    // error: PropTypes.string
 };
 
 export default MultiSelectField;
