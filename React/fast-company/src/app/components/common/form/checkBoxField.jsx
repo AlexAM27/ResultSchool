@@ -1,15 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function CheckBoxField({ name, onChange, value, children, error }) {
+const CheckBoxField = ({ name, value, onChange, children, error }) => {
     const handleChange = () => {
         onChange({ name: name, value: !value });
     };
-
     const getInputClasses = () => {
         return "form-check-input" + (error ? " is-invalid" : "");
     };
-
     return (
         <div className="form-check mb-4">
             <input
@@ -26,12 +24,11 @@ function CheckBoxField({ name, onChange, value, children, error }) {
             {error && <div className="invalid-feedback">{error}</div>}
         </div>
     );
-}
-
+};
 CheckBoxField.propTypes = {
     name: PropTypes.string,
-    onChange: PropTypes.func,
     value: PropTypes.bool,
+    onChange: PropTypes.func,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
