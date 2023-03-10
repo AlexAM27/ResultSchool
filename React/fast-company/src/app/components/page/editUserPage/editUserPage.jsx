@@ -6,6 +6,7 @@ import RadioField from "../../common/form/radioField";
 import MultiSelectField from "../../common/form/multiSelectField";
 import api from "../../../api";
 import { validator } from "../../../utils/validator";
+import BackHistoryButton from "../../common/backButton";
 
 const EditUserPage = () => {
     const { userId } = useParams();
@@ -114,6 +115,7 @@ const EditUserPage = () => {
 
     return (
         <div className="container mt-5">
+            <BackHistoryButton />
             <div className="row">
                 <div className="col-md-6 offset-md-3 shadow p-4">
                     {user && professions ? (

@@ -1,5 +1,6 @@
 import React from "react";
 import PropType from "prop-types";
+import Comment from "./comment";
 
 const CommentsList = ({ comments, onRemove }) => {
     return comments.map((comment) => (

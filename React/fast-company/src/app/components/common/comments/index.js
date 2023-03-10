@@ -1,7 +1,7 @@
-// import Table from "./table";
-// import TableBody from "./tableBody";
-// import TableHeader from "./tableHeader";
+// import CommentsList from "./commentsList";
+// import Comment from "./comment";
+// import AddCommentForm from "./addCommentForm";
 
-// export default Table;
+// export default CommentsList;
 
-// export { TableBody, TableHeader };
+// export { Comment, AddCommentForm };
