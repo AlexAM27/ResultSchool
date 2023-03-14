@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import api from "../../../api";
 import SelectField from "../form/selectField";
-import TextAreaField from "../form/textField";
+import TextAreaField from "../form/textAreaField";
 import { validator } from "../../../utils/validator";
 const initialData = { userId: "", content: "" };
 
@@ -57,7 +57,7 @@ const AddCommentForm = ({ onSubmit }) => {
     const arrayOfUsers =
         users &&
         Object.keys(users).map((userId) => ({
-            name: users[userId].name,
+            label: users[userId].name,
             value: users[userId]._id
         }));
 

@@ -10,6 +10,7 @@ const Comment = ({
     userId,
     onRemove
 }) => {
+    console.log(typeof created);
     const [user, setUser] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
