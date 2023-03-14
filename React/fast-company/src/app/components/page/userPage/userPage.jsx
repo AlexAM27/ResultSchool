@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import api from "../../../api";
-import UserCard from "./userInfoCards/userCard";
-import QualitiesCard from "./userInfoCards/qualitiesCard";
-import MeetingsCard from "./userInfoCards/meetingsCard";
+import UserCard from "../../ui/userCard";
+import QualitiesCard from "../../ui/qualitiesCard";
+import MeetingsCard from "../../ui/meetingsCard";
 import Comments from "../../ui/comments";
 
 const UserPage = ({ userId }) => {

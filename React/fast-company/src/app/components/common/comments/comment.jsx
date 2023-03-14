@@ -44,15 +44,14 @@ const Comment = ({
                                 <div className="mb-4">
                                     <div className="d-flex justify-content-between align-items-center">
                                         <p className="mb-1 ">
-                                            {user && user.name}
-                                            {""}
+                                            {user && user.name}{" "}
                                             <span className="small">
                                                 - {displayDate(created)}
                                             </span>
                                         </p>
                                         <button
                                             className="btn btn-sm text-primary d-flex align-items-center"
-                                            onClick={onRemove(id)}
+                                            onClick={() => onRemove(id)}
                                         >
                                             <i className="bi bi-x-lg"></i>
                                         </button>
@@ -70,7 +69,7 @@ const Comment = ({
 
 Comment.propTypes = {
     content: PropTypes.string,
-    created_at: PropTypes.number,
+    created_at: PropTypes.string,
     _id: PropTypes.string,
     userId: PropTypes.string,
     onRemove: PropTypes.func

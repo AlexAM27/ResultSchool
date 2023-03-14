@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import api from "../../api";
+import API from "../../api";
 import { orderBy } from "lodash";
-import AddCommentForm from "../common/comments/addCommentForm";
+// import AddCommentForm from "../common/comments/addCommentForm";
 import CommentsList from "../common/comments/commentsList";
 
 const Comments = () => {
     const { userId } = useParams();
-    const [comments, setComments] = useState();
+    const [comments, setComments] = useState([]);
+    console.log("user", userId);
 
     useEffect(() => {
-        api.comments
-            .fetchCommentsForUser(userId)
-            .then((data) => setComments(data));
+        API.comments.fetchCommentsForUser(userId).then((data) => {
+            setComments(data);
+        });
     }, []);
 
-    const handleSubmit = (data) => {
-        api.comments
-            .add({ ...data, pageId: userId })
-            .then((data) => setComments([...comments, data]));
-    };
+    // const handleSubmit = (data) => {
+    //     api.comments
+    //         .add({ ...data, pageId: userId })
+    //         .then((data) => setComments([...comments, data]));
+    // };
 
     const handleRemoveComment = (id) => {
-        api.comments.remove(id).then((id) => {
+        API.comments.remove(id).then((id) => {
             setComments(comments.filter((x) => x._id !== id));
         });
     };
@@ -31,13 +32,13 @@ const Comments = () => {
 
     return (
         <>
-            <div className="card mb-2">
+            {/* <div className="card mb-2">
                 {" "}
                 <div className="card-body ">
                     <AddCommentForm onSubmit={handleSubmit} />
                 </div>
-            </div>
-            {comments && (
+            </div> */}
+            {sortedComments.length > 0 && (
                 <div className="card mb-3">
                     <div className="card-body ">
                         <h2>Comments</h2>
