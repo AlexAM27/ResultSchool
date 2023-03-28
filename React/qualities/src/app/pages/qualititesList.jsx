@@ -5,6 +5,7 @@ import { useQualities } from "../hooks/useQualities"
 
 const QualitiesListPage = () => {
   const history = useHistory()
+  const { deleteQuality } = useQualities()
 
   const { qualities } = useQualities()
 
@@ -12,8 +13,8 @@ const QualitiesListPage = () => {
     history.push(`/edit/${param}`)
   }
 
-  const handleDelete = (param) => {
-    console.log(param)
+  const handleDelete = (id) => {
+    deleteQuality(id)
   }
 
   return (
