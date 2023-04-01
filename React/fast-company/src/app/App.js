@@ -7,6 +7,7 @@ import NavBar from "./components/ui/navBar";
 import EditUserPage from "./components/page/editUserPage";
 import { ToastContainer } from "react-toastify";
 import { ProfessionProvider } from "./hooks/useProfession";
+import { QualitiesProvider } from "./hooks/useQualities";
 
 function App() {
     return (
@@ -14,12 +15,14 @@ function App() {
             <NavBar />
             <Switch>
                 <ProfessionProvider>
-                    <Route
-                        path="/users/:userId/edit"
-                        component={EditUserPage}
-                    />
-                    <Route path="/users/:userId?" component={Users} />
-                    <Route path="/login/:type?" component={Login} />
+                    <QualitiesProvider>
+                        <Route
+                            path="/users/:userId/edit"
+                            component={EditUserPage}
+                        />
+                        <Route path="/users/:userId?" component={Users} />
+                        <Route path="/login/:type?" component={Login} />
+                    </QualitiesProvider>
                 </ProfessionProvider>
 
                 <Route path="/" exact component={Main} />
