@@ -33,8 +33,7 @@ const AuthProvider = ({ children }) => {
     }, [error]);
 
     async function signUp({ email, password, ...rest }) {
-        const key = "AIzaSyBmj5p4a7qGXJRCikJOephCbftzV9cI1hM";
-        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`;
+        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_KEY}`;
         try {
             const { data } = await axios.post(url, {
                 email,
