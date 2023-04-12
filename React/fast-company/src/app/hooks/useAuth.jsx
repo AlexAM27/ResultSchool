@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import userService from "../services/user.service";
 import { toast } from "react-toastify";
-import { setTokens } from "../services/localStorage.service";
+import { setTokens, setLoginData } from "../services/localStorage.service";
 
 const AuthContext = React.createContext();
 
@@ -21,6 +21,41 @@ const AuthProvider = ({ children }) => {
             setError(null);
         }
     }, [error]);
+
+    async function signIn({ email, password, ...rest }) {
+        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_KEY}`;
+        try {
+            const { data } = await axios.post(url, {
+                email,
+                password,
+                returnSecureToken: true
+            });
+            setLoginData(data);
+        } catch (error) {
+            errorCatcher(error);
+            const { code, message } = error.response.data.error;
+            if (code === 400) {
+                if (message === "EMAIL_NOT_FOUND") {
+                    const errorObject = {
+                        email: "Пользователь с таким Email не найден"
+                    };
+                    throw errorObject;
+                }
+                if (message === "INVALID_PASSWORD") {
+                    const errorObject = {
+                        email: "Неправильный пароль"
+                    };
+                    throw errorObject;
+                }
+                if (message === "USER_DISABLED") {
+                    const errorObject = {
+                        email: "Пользователь заблокирован. Обратитесь к администратору"
+                    };
+                    throw errorObject;
+                }
+            }
+        }
+    }
 
     async function signUp({ email, password, ...rest }) {
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_KEY}`;
@@ -61,7 +96,7 @@ const AuthProvider = ({ children }) => {
         setError(message);
     }
     return (
-        <AuthContext.Provider value={{ signUp, currentUser }}>
+        <AuthContext.Provider value={{ signUp, currentUser, signIn }}>
             {children}
         </AuthContext.Provider>
     );
