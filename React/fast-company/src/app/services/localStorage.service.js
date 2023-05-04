@@ -2,12 +2,18 @@ const TOKEN_KEY = "jwt-token";
 const REFRESH_KEY = "jwt-refresh-token";
 const EXPIRES_KEY = "jwt-expires";
 const EMAIL = "user-email";
-const LOCAL_ID = "jwt-local-token";
+const USERID_KEY = "user-local-id";
 const REGISTERED = "user-registered";
 
-export function setTokens({ refreshToken, idToken, expiresIn = 3600 }) {
+export function setTokens({
+    refreshToken,
+    idToken,
+    localId,
+    expiresIn = 3600
+}) {
     const expiresDate = new Date().getTime() + expiresIn * 1000;
     localStorage.setItem(TOKEN_KEY, idToken);
+    localStorage.setItem(USERID_KEY, localId);
     localStorage.setItem(REFRESH_KEY, refreshToken);
     localStorage.setItem(EXPIRES_KEY, expiresDate);
 }
@@ -25,7 +31,7 @@ export function setLoginData({
     localStorage.setItem(REFRESH_KEY, refreshToken);
     localStorage.setItem(EXPIRES_KEY, expiresDate);
     localStorage.setItem(EMAIL, email);
-    localStorage.setItem(LOCAL_ID, localId);
+    localStorage.setItem(USERID_KEY, localId);
     localStorage.setItem(REGISTERED, registered);
 }
 
@@ -45,8 +51,8 @@ export function getUserEmail() {
     return localStorage.getItem(EMAIL);
 }
 
-export function getLocalToken() {
-    return localStorage.getItem(LOCAL_ID);
+export function getUserId() {
+    return localStorage.getItem(USERID_KEY);
 }
 
 export function getUserIsRegistered() {
@@ -60,7 +66,7 @@ const localStorageService = {
     getRefreshToken,
     getTokenExpiresDate,
     getUserEmail,
-    getLocalToken,
+    getUserId,
     getUserIsRegistered
 };
 
