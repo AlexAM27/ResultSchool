@@ -5,9 +5,7 @@ const chalk = require('chalk')
 const notesPath = path.join(__dirname, 'db.json')
 
 async function addNote(title) {
-  
   const notes = await getNotes()
-
   const note = {
     title,
     id: Date.now().toString()
@@ -16,6 +14,14 @@ async function addNote(title) {
   notes.push(note)
   await fs.writeFile(notesPath, JSON.stringify(notes))
   console.log(chalk.green.inverse('Note was added!'))
+}
+
+async function removeNote(id) {
+  const notes = await getNotes()
+
+  const newNotes = notes.filter(note => note.id !== id)
+  await fs.writeFile(notesPath, JSON.stringify(newNotes))
+  console.log(chalk.bgRed.inverse('Note was deleted!'))
 }
 
 async function getNotes() {
@@ -27,10 +33,10 @@ async function printNotes() {
   const notes = await getNotes()
   console.log(chalk.bgBlue('Here is the list of notes:'))
   notes.forEach(note => {
-    console.log(chalk.blue(note.title))
+    console.log(chalk.blue(`${note.id} ${note.title}`))
   });
 }
 
 module.exports = {
-  addNote, printNotes
+  addNote, printNotes, removeNote
 }
