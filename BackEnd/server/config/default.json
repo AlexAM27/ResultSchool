@@ -1,0 +1,4 @@
+{
+  "port": 8080,
+  "mongoUri": "mongodb+srv://alexandermarkin27:result-school-1234@cluster1.tzh2kkg.mongodb.net/"
+}
