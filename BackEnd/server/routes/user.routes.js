@@ -1,6 +1,6 @@
 const express = require('express')
 const User = require('../models/User')
-const auth = require('../middleware.js/auth.middleware')
+const auth = require('../middleware/auth.middleware')
 const router = express.Router({mergeParams: true})
 
 router.patch('/:userId', auth, async (req, res) => {
