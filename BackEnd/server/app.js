@@ -3,13 +3,15 @@ const mongoose = require("mongoose")
 const chalk = require("chalk")
 const config = require("config")
 const initDatabase = require("./startUp/initDatabase")
-const routes = require('./routes')
+const routes = require("./routes")
+const cors = require("cors")
 
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use('/api', routes)
+app.use("/api", routes)
+app.use(cors())
 
 const PORT = config.get("port") ?? 8080
 

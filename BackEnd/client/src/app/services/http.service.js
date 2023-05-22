@@ -11,12 +11,14 @@ const http = axios.create({
 
 http.interceptors.request.use(
     async function (config) {
+        const expiresDate = localStorageService.getTokenExpiresDate();
+        const refreshToken = localStorageService.getRefreshToken();
+
         if (configFile.isFireBase) {
             const containSlash = /\/$/gi.test(config.url);
             config.url =
                 (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
-            const expiresDate = localStorageService.getTokenExpiresDate();
-            const refreshToken = localStorageService.getRefreshToken();
+
             if (refreshToken && expiresDate < Date.now()) {
                 const data = await authService.refresh();
 
